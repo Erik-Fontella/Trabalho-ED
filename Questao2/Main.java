@@ -9,18 +9,18 @@ public class Main {
     public static void main(String[] args) {
         Tad_vetor vetor = new Tad_vetor();
         
-        vetor.adiciona(1);
-        vetor.adiciona(3);
         vetor.adiciona(2);
+        vetor.adiciona(3);
+        vetor.adiciona(10);
         vetor.adiciona(5);
         vetor.adiciona(4);
         vetor.adiciona(7);
         vetor.adiciona(6);
-        vetor.adiciona(9);
+        vetor.adiciona(1);
         vetor.adiciona(8);
-        vetor.adiciona(10);
+        vetor.adiciona(9);
 
-        vetor.selectionSortDescending();
+        vetor.selectionSort();
     }
 
     

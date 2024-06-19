@@ -33,7 +33,7 @@ public class Tad_vetor {
         return vetor[posicao];
     }
     
-    public void selectionSortDescending( ) {
+    public void selectionSort( ) {
         for (int i = tamanho - 1; i > 0; i--) {
             int maior = i;
             for (int j = i - 1; j >= 0; j--) {

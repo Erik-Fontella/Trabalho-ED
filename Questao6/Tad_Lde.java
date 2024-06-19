@@ -74,7 +74,7 @@ public class Tad_Lde{
         }
     }
 
-    public void concatena(Tad_Lde l) {
+    public void concat(Tad_Lde l) {
         if (l.estahVazia()) {
             return;
         }

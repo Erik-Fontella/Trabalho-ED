@@ -19,7 +19,7 @@ public class Main {
         lista2.insereInicio(7);
         lista2.insereFim(8);
 
-        lista1.concatena(lista2);
+        lista1.concat(lista2);
 
         lista1.imprimeLista();
     }

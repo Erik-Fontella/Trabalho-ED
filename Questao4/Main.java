@@ -14,10 +14,14 @@ public class Main {
         lista.addOrdenado(5);
         lista.addOrdenado(7);
         lista.addOrdenado(10);
-        lista.addOrdenado(6);
-
         lista.imprimeLista();
-
+        System.out.println("----------------------------");
+        System.err.println("Inserindo 6");
+        System.out.println("----------------------------");
+        lista.addOrdenado(6);
+        lista.imprimeLista();
+        System.out.println("----------------------------");
+        System.err.println("Inserindo 3");
         lista.addOrdenado(3);
         System.err.println("----------------------------");
         lista.imprimeLista();

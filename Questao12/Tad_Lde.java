@@ -1,32 +1,32 @@
-package Questao4;
+package Questao12;
 
-public class Tad_Lde{
-    private Noh inicio;
-    private Noh fim;
+public class Tad_Lde<T> {
+    private Noh<T> inicio;
+    private Noh<T> fim;
 
     public Tad_Lde() {
         this.inicio = null;
         this.fim = null;
     }
 
-    public boolean addOrdenado(int valor) {
-        Noh novo = new Noh(valor); 
-        if (inicio == null) { 
-            inicio = fim = novo; 
+    public boolean addOrdenado(T valor) {
+        Noh<T> novo = new Noh<>(valor);
+        if (inicio == null) {
+            inicio = fim = novo;
         } else {
-            Noh atual = inicio;
-            while (atual != null && (int) atual.getInfo() < valor) { 
+            Noh<T> atual = inicio;
+            while (atual != null && ((Comparable<T>) atual.getInfo()).compareTo(valor) < 0) {
                 atual = atual.getProx();
             }
-            if (atual == inicio) { 
+            if (atual == inicio) {
                 novo.setProx(inicio);
                 inicio.setAnterior(novo);
                 inicio = novo;
-            } else if (atual == null) { 
+            } else if (atual == null) {
                 fim.setProx(novo);
                 novo.setAnterior(fim);
                 fim = novo;
-            } else { 
+            } else {
                 novo.setProx(atual);
                 novo.setAnterior(atual.getAnterior());
                 atual.getAnterior().setProx(novo);
@@ -40,22 +40,22 @@ public class Tad_Lde{
         return inicio == null;
     }
 
-    public boolean remove(Object info) {
-        Noh p = inicio;
-        while (p != null && p.getInfo() != info) 
+    public boolean remove(T info) {
+        Noh<T> p = inicio;
+        while (p != null && !p.getInfo().equals(info))
             p = p.getProx();
-        if (p == null) 
+        if (p == null)
             return false;
-        if (p == inicio) { 
+        if (p == inicio) {
             inicio = p.getProx();
             if (inicio != null)
                 inicio.setAnterior(null);
             else
                 fim = null;
-        } else if (p.getProx() == null) { 
+        } else if (p.getProx() == null) {
             p.getAnterior().setProx(null);
             fim = p.getAnterior();
-        } else { 
+        } else {
             p.getAnterior().setProx(p.getProx());
             p.getProx().setAnterior(p.getAnterior());
         }
@@ -64,23 +64,17 @@ public class Tad_Lde{
 
     public int tamanho() {
         int cont = 0;
-        for (Noh i = inicio; i != null; i = i.getProx())
+        for (Noh<T> i = inicio; i != null; i = i.getProx())
             cont++;
         return cont;
     }
 
     public void imprimeLista() {
-        StringBuilder sb = new StringBuilder();
-        Noh atual = inicio;
-        sb.append("[");
+        Noh<T> atual = inicio;
         while (atual != null) {
-            sb.append(atual.getInfo());
+            System.out.print(atual.getInfo() + " ");
             atual = atual.getProx();
-            if (atual != null) {
-                sb.append(", ");
-            }
         }
-        sb.append("]");
-        System.out.println(sb.toString());
+        System.out.println();
     }
 }
