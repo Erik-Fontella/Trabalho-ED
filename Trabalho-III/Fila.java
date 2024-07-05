@@ -1,105 +1,62 @@
 public class Fila<T> {
-    private int tamanho;
     private T[] elementos;
+    private int tamanho;
     private int inicio;
     private int fim;
     private int total;
 
     @SuppressWarnings("unchecked")
-    public Fila(int tamanho) {
-        this.tamanho = tamanho;
-        this.elementos = (T[]) new Object[tamanho];
-        this.inicio = 0;
-        this.fim = 0;
-        this.total = 0;
+    public Fila(int capacidade) {
+        elementos = (T[]) new Object[capacidade];
+        tamanho = capacidade;
+        inicio = 0;
+        fim = 0;
+        total = 0;
+    }
+
+    public void enqueue(T elemento) {
+        if (total < tamanho) {
+            elementos[fim] = elemento;
+            fim = (fim + 1) % tamanho;
+            total++;
+        } else {
+            throw new RuntimeException("Fila cheia");
+        }
+    }
+
+    public T dequeue() {
+        if (total > 0) {
+            T elemento = elementos[inicio];
+            inicio = (inicio + 1) % tamanho;
+            total--;
+            return elemento;
+        } else {
+            throw new RuntimeException("Fila vazia");
+        }
     }
 
     public boolean isEmpty() {
         return total == 0;
     }
 
-    public boolean isFull() {
-        return total == tamanho;
-    }
-
-    public void enqueue(T elemento) {
-        if (isFull()) {
-            System.out.println("Fila cheia!");
-        } else {
-            elementos[fim] = elemento;
-            fim = (fim + 1) % tamanho;
-            total++;
+    @SuppressWarnings("unchecked")
+    public T[] getElementos(Class<T> clazz) {
+        T[] elementosEspecificos = (T[]) java.lang.reflect.Array.newInstance(clazz, total);
+        for (int i = 0; i < total; i++) {
+            elementosEspecificos[i] = elementos[(inicio + i) % tamanho];
         }
-    }
-
-    public T dequeue() {
-        if (isEmpty()) {
-            System.out.println("Fila vazia!");
-            return null;
-        } else {
-            T elemento = elementos[inicio];
-            inicio = (inicio + 1) % tamanho;
-            total--;
-            return elemento;
-        }
-    }
-
-    public T peek() {
-        if (isEmpty()) {
-            System.out.println("Fila vazia!");
-            return null;
-        } else {
-            return elementos[inicio];
-        }
-    }
-
-    public void print() {
-        if (isEmpty()) {
-            System.out.println("Fila vazia!");
-        } else {
-            for (int i = 0; i < total; i++) {
-                System.out.println(elementos[(inicio + i) % tamanho]);
-            }
-        }
-    }
-
-    public int getTamanho() {
-        return tamanho;
-    }
-
-    public T[] getElementos() {
-        return elementos;
-    }
-
-    public int getInicio() {
-        return inicio;
-    }
-
-    public int getFim() {
-        return fim;
+        return elementosEspecificos;
     }
 
     public int getTotal() {
         return total;
     }
 
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
+    public int getInicio() {
+        return inicio;
     }
 
-    public void setElementos(T[] elementos) {
-        this.elementos = elementos;
-    }
-
-    public void setInicio(int inicio) {
-        this.inicio = inicio;
-    }
-
-    public void setFim(int fim) {
-        this.fim = fim;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
+    public int getTamanho() {
+        return tamanho;
     }
 }

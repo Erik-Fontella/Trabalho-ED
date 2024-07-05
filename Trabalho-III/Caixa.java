@@ -1,5 +1,5 @@
 /**
- * Classe que representa um caixa de supermercado.
+ * Representa um caixa de supermercado.
  */
 public class Caixa {
     private int id;
@@ -10,86 +10,82 @@ public class Caixa {
     /**
      * Construtor da classe Caixa.
      *
-     * @param id          O identificador do caixa.
-     * @param tamanhoFila O tamanho máximo da fila do caixa.
+     * @param id         o identificador do caixa
+     * @param tamanhoFila o tamanho máximo da fila de clientes
      */
     public Caixa(int id, int tamanhoFila) {
         this.id = id;
         this.fila = new Fila<>(tamanhoFila);
+        this.clienteAtual = null;
+        this.tempoRestante = 0;
     }
 
     /**
-     * Adiciona um cliente à fila do caixa.
+     * Obtém o identificador do caixa.
      *
-     * @param cliente O cliente a ser adicionado à fila.
+     * @return o identificador do caixa
      */
-    public void adicionarCliente(Cliente cliente) {
-        fila.enqueue(cliente);
+    public int getId() {
+        return id;
     }
 
     /**
-     * Atende o próximo cliente na fila, se o caixa estiver disponível.
-     */
-    public void atenderCliente() {
-        if (clienteAtual == null && !fila.isEmpty()) {
-            clienteAtual = fila.dequeue();
-            tempoRestante = clienteAtual.getTempoEspera();
-        }
-    }
-
-    /**
-     * Decrementa o tempo restante para atender o cliente atual.
-     * Libera o caixa se o tempo de atendimento do cliente for concluído.
-     */
-    public void decrementarTempo() {
-        if (clienteAtual != null) {
-            tempoRestante--;
-            if (tempoRestante == 0) {
-                liberarCaixa();
-            }
-        }
-    }
-
-    /**
-     * Libera o caixa, indicando que ele está disponível para o próximo cliente.
-     */
-    public void liberarCaixa() {
-        clienteAtual = null;
-    }
-
-    /**
-     * Retorna a fila de clientes do caixa.
+     * Obtém a fila de clientes deste caixa.
      *
-     * @return A fila de clientes.
+     * @return a fila de clientes
      */
     public Fila<Cliente> getFila() {
         return fila;
     }
 
     /**
-     * Retorna o cliente atualmente sendo atendido pelo caixa.
+     * Obtém o cliente que está sendo atendido atualmente.
      *
-     * @return O cliente atual, ou null se o caixa estiver disponível.
+     * @return o cliente atual, ou null se não houver nenhum
      */
     public Cliente getClienteAtual() {
         return clienteAtual;
     }
 
     /**
-     * Retorna o tempo restante para concluir o atendimento do cliente atual.
+     * Obtém o tempo restante para terminar de atender o cliente atual.
      *
-     * @return O tempo restante de atendimento.
+     * @return o tempo restante em minutos
      */
     public int getTempoRestante() {
         return tempoRestante;
     }
 
     /**
-     * Retorna o identificador do caixa.
+     * Adiciona um cliente à fila deste caixa.
      *
-     * @return O identificador do caixa.
+     * @param cliente o cliente a ser adicionado
      */
-    public int getId() {
-        return id;
+    public void adicionarCliente(Cliente cliente) {
+        fila.enqueue(cliente);
+    }
+
+    /**
+     * Atende o próximo cliente da fila, se não houver um cliente sendo atendido atualmente.
+     * Atualiza o tempo de atendimento para o tempo necessário do próximo cliente.
+     */
+    public void atenderCliente() {
+        if (clienteAtual == null && fila.getTotal() > 0) {
+            clienteAtual = fila.dequeue();
+            tempoRestante = clienteAtual.getTempoEspera();
+        }
+    }
+
+    /**
+     * Decrementa o tempo restante de atendimento do cliente atual.
+     * Se o tempo restante chegar a zero, o cliente atual é removido.
+     */
+    public void decrementarTempo() {
+        if (tempoRestante > 0) {
+            tempoRestante--;
+            if (tempoRestante == 0) {
+                clienteAtual = null;
+            }
+        }
     }
 }
