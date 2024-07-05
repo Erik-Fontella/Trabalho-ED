@@ -1,3 +1,7 @@
+/*
+ * Trabalho III - Simulação de um supermercado
+ * Alunos: Erik Fontella, Pedro Araujo
+ */
 public class Principal {
 
     public static void main(String[] args) {

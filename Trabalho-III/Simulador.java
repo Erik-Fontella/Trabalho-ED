@@ -19,7 +19,7 @@ public class Simulador {
     /**
      * Inicia a simulação do supermercado.
      * A simulação continua até que seja interrompida manualmente.
-     * A cada etapa, um cliente pode chegar, clientes são atendidos e o estado atual é exibido.
+     * A cada etapa, um cliente pode chegar, os clientes são atendidos e o estado atual é exibido.
      */
     public void iniciarSimulacao() {
         Scanner scanner = new Scanner(System.in);
